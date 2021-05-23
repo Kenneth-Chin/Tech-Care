@@ -54,7 +54,7 @@
   </div>
 
   <!-- Specific JS goes HERE --> 
-  {% block javascripts %}{% endblock javascripts %}
+  {% block javascripts %}
 
   <script type="text/javascript" src="/static/assets/vendor/jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="/static/assets/vendor/js-cookie/js.cookie.js"></script>
@@ -62,6 +62,8 @@
   <script type="text/javascript" src="/static/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
   <script type="text/javascript" src="/static/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="/static/assets/js/argon.js?v=1.2.0"></script>
+
+  {% endblock javascripts %}
 
 </body>
 
