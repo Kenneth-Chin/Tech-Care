@@ -1,0 +1,59 @@
+{% extends 'layouts/base.html' %}
+
+{% load widget_tweaks %}
+
+{% block title %} Smart Pharmacy {% endblock title %}
+
+{% block content %}
+
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-9 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">Smart Pharmacy</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">Patient's View</a></li>
+                <li class="breadcrumb-item"><a href="#">Smart Pharmacy</a></li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <!-- Card header -->
+              <div class="card-header border-0">
+                <h3 class="mb-0">Medical Prescription</h3>
+              </div>
+              <div class="card-body">
+                  <p>Our Advanced Robots will prepare the best medication for your treatment! Let us know about your condition and they'll figure it out for you.</p>
+                  <form method="post" action="smart-pharmacy-loading.html">
+                    {% csrf_token %}
+                    <label for="medicine">What specific type of medicine do you need? / What are the symptoms you're having?</label>
+                    <textarea class="form-control form-control-alternative" id="medicine" rows=7 required></textarea>
+                    <p align="right">
+                      <input type="submit" class="btn btn-primary mt-5">
+                    </p>
+                  </form>
+              </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

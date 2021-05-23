@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html' %}
+
+{% load widget_tweaks %}
+
+{% block title %} Appointment Success {% endblock title %}
+
+{% block content %}
+
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">You Have successfully booked an appointment!</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header border-0">
+              <h3 class="mb-0">Registration QR Code</h3>
+          </div>
+          <div class="card-body">
+            <p align="middle"> Your doctor will contact you shortly to confirm the appointment.</p>
+            <p align="middle"> Save this QR code for your registration process at TechCare. Stay safe and have a good day!</p>
+            <p align="middle">
+              <img src="/static/assets/img/theme/qr_code.png">
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Dark table -->
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

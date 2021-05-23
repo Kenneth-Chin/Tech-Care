@@ -1,0 +1,93 @@
+{% extends 'layouts/base.html' %}
+
+{% load widget_tweaks %}
+
+{% block title %} Smart Pharmacy {% endblock title %}
+
+{% block content %}
+<script type="text/javascript">
+var i = 0;
+function move() {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var label = document.getElementById("myLabel");
+    var width = 1;
+    var id = setInterval(frame, 10);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+        i = 0;
+      } else {
+        width++;
+        label.innerHTML = width + "%";
+        elem.style.width = width + "%";
+      }
+    }
+  }
+}
+window.onload = function(){
+    move()
+    setTimeout(function(){
+       window.location = "medicine-found.html";
+    }, 3000);
+};
+</script>
+
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-9 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">Smart Pharmacy</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">Patient's View</a></li>
+                <li class="breadcrumb-item"><a href="#">Smart Pharmacy</a></li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <!-- Card header -->
+              <div class="card-header border-0">
+                <h3 class="mb-0">Medical Prescription</h3>
+              </div>
+              <div class="card-body">
+                  <p>Our Advanced Robots will prepare the best medication for your treatment! Let us know about your condition and they'll figure it out for you.</p>
+                  <h1 align="middle" style="padding-top:50px">Please wait while we find the best medicine for you!</h1>
+                  <div class="progress-wrapper">
+                      <div class="progress-info">
+                        <div class="progress-label">
+                          <span>Completed</span>
+                        </div>
+                        <div class="progress-percentage">
+                          <span id="myLabel"></span>
+                        </div>
+                      </div>
+                      <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" id="myBar"></div>
+                      </div>
+                  </div>
+              </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

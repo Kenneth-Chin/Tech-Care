@@ -1,0 +1,98 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Home {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+
+    <div class="header pb-6 d-flex align-items-center"
+       style="min-height: 500px; background-image: url(/static/assets/img/theme/healthcare.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">
+              Welcome to TechCare, {{ request.user.username }}
+            </h1>
+            <p class="text-white mt-0 mb-5">TechCare is a hospital system with innovative digital solutions aimed to solve the current issues in the healthcare domain.</p>
+            <a href="book-an-appointment.html" class="btn btn-neutral">Book an Appointment</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Card stats -->
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-xl-8">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">About Us</h3>
+                </div>
+              </div>
+            </div>
+            <div class="nav-wrapper">
+                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-world-2 mr-2"></i>Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-active-40 mr-2"></i>Developer's Notes</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                            <p class="description">We are Group 6 in Digital Thinking and Innovation (DGTIN) module from Asia Pacific University APU1F2103CS intake.
+                              Our group members include Aw Zhi Wei (Leader), Leong Chee Kei, Tan Zhi Jun, Kenneth Chin Wei Yow and Muhammad Kelwin Bin Mohd. Sharizuan Chew.</p>
+                        </div>
+                        <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                            <p class="description">This is only a demo website. If there's any issue, feel free to contact me @ kennethchin12345@gmail.com. Thank you and have a good day.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="card">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Latest News</h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">COVID-19</h5>
+              <p class="card-text">Wear your mask, wash your hands often, and get vaccinated! Get the latest update from here.</p>
+              <a href="http://covid-19.moh.gov.my/" target="_blank" class="btn btn-primary">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}

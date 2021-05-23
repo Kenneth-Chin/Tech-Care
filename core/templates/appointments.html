@@ -1,0 +1,438 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Appointments {% endblock title %}
+
+{% block content %}
+
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">Appointments</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">Doctor's View</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Appointments</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+        <form method="post" action="appointments.html">
+          {% csrf_token %}
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h3 class="mb-0">Neurology - Dr. Kenneth Chin Wei Yow</h3>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">Patient's Name</th>
+                    <th scope="col" class="sort" data-sort="email">Email</th>
+                    <th scope="col" class="sort" data-sort="contact-number">Contact Number</th>
+                    <th scope="col" class="sort" data-sort="medical-concern">Medical Concern</th>
+                    <th scope="col" class="sort" data-sort="status">Status</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  {% for appointment in appointments %}
+                    {% if appointment.request_specialty == "1" %}
+                          <tr>
+                            <th scope="row">
+                              <div class="media align-items-center">
+                                <a href="#" class="avatar rounded-circle mr-3">
+                                  <img alt="Image placeholder" src="/static/assets/img/theme/patient.png">
+                                </a>
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{ appointment.first_name }} {{ appointment.last_name }}</span>
+                                </div>
+                              </div>
+                            </th>
+                            <td class="email">
+                              {{ appointment.email }}
+                            </td>
+                            <td class="contact-number">
+                              {{ appointment.contact_number }}
+                            </td>
+                            <td class="medical-concern">
+                              {{ appointment.medical_concern|truncatechars:30 }}
+                            </td>
+                            <td>
+                              <span class="badge badge-dot mr-4">
+                                {% if appointment.status == "Pending" %}
+                                  <i class="bg-yellow"></i>
+                                {% elif appointment.status == "Accepted" %}
+                                  <i class="bg-green"></i>
+                                {% elif appointment.status == "Rejected" %}
+                                  <i class="bg-red"></i>
+                                {% elif appointment.status == "Completed" %}
+                                  <i class="bg-blue"></i>
+                                {% endif %}
+                                <span class="status">{{ appointment.status }}</span>
+                              </span>
+                            </td>
+                            <td class="text-right">
+                              <div class="dropdown">
+                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fas fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                  {% if appointment.status == "Pending" %}
+                                    <button class="dropdown-item" name="accept" value="{{ appointment.pk }}">Accept</button>
+                                    <button class="dropdown-item" name="reject" value="{{ appointment.pk }}">Reject</button>
+                                  {% elif appointment.status == "Accepted" %}
+                                    <button class="dropdown-item" name="complete" value="{{ appointment.pk }}">Mark as complete</button>
+                                  {% elif appointment.status == "Rejected" or appointment.status == "Completed" %}
+                                    <button class="dropdown-item" name="delete" value="{{ appointment.pk }}">Delete</button>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h3 class="mb-0">Cardiology - Dr. Aw Zhi Wei</h3>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">Patient's Name</th>
+                    <th scope="col" class="sort" data-sort="email">Email</th>
+                    <th scope="col" class="sort" data-sort="contact-number">Contact Number</th>
+                    <th scope="col" class="sort" data-sort="medical-concern">Medical Concern</th>
+                    <th scope="col" class="sort" data-sort="status">Status</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  {% for appointment in appointments %}
+                    {% if appointment.request_specialty == "2" %}
+                          <tr>
+                            <th scope="row">
+                              <div class="media align-items-center">
+                                <a href="#" class="avatar rounded-circle mr-3">
+                                  <img alt="Image placeholder" src="/static/assets/img/theme/patient.png">
+                                </a>
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{ appointment.first_name }} {{ appointment.last_name }}</span>
+                                </div>
+                              </div>
+                            </th>
+                            <td class="email">
+                              {{ appointment.email }}
+                            </td>
+                            <td class="contact-number">
+                              {{ appointment.contact_number }}
+                            </td>
+                            <td class="medical-concern">
+                              {{ appointment.medical_concern|truncatechars:30 }}
+                            </td>
+                            <td>
+                              <span class="badge badge-dot mr-4">
+                                {% if appointment.status == "Pending" %}
+                                  <i class="bg-yellow"></i>
+                                {% elif appointment.status == "Accepted" %}
+                                  <i class="bg-green"></i>
+                                {% elif appointment.status == "Rejected" %}
+                                  <i class="bg-red"></i>
+                                {% elif appointment.status == "Completed" %}
+                                  <i class="bg-blue"></i>
+                                {% endif %}
+                                <span class="status">{{ appointment.status }}</span>
+                              </span>
+                            </td>
+                            <td class="text-right">
+                              <div class="dropdown">
+                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fas fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                  {% if appointment.status == "Pending" %}
+                                    <button class="dropdown-item" name="accept" value="{{ appointment.pk }}">Accept</button>
+                                    <button class="dropdown-item" name="reject" value="{{ appointment.pk }}">Reject</button>
+                                  {% elif appointment.status == "Accepted" %}
+                                    <button class="dropdown-item" name="complete" value="{{ appointment.pk }}">Mark as complete</button>
+                                  {% elif appointment.status == "Rejected" or appointment.status == "Completed" %}
+                                    <button class="dropdown-item" name="delete" value="{{ appointment.pk }}">Delete</button>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        {% endif %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h3 class="mb-0">Psychiatry - Dr. Leong Chee Kei</h3>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">Patient's Name</th>
+                    <th scope="col" class="sort" data-sort="email">Email</th>
+                    <th scope="col" class="sort" data-sort="contact-number">Contact Number</th>
+                    <th scope="col" class="sort" data-sort="medical-concern">Medical Concern</th>
+                    <th scope="col" class="sort" data-sort="status">Status</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  {% for appointment in appointments %}
+                    {% if appointment.request_specialty == "3" %}
+                          <tr>
+                            <th scope="row">
+                              <div class="media align-items-center">
+                                <a href="#" class="avatar rounded-circle mr-3">
+                                  <img alt="Image placeholder" src="/static/assets/img/theme/patient.png">
+                                </a>
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{ appointment.first_name }} {{ appointment.last_name }}</span>
+                                </div>
+                              </div>
+                            </th>
+                            <td class="email">
+                              {{ appointment.email }}
+                            </td>
+                            <td class="contact-number">
+                              {{ appointment.contact_number }}
+                            </td>
+                            <td class="medical-concern">
+                              {{ appointment.medical_concern|truncatechars:30 }}
+                            </td>
+                            <td>
+                              <span class="badge badge-dot mr-4">
+                                {% if appointment.status == "Pending" %}
+                                  <i class="bg-yellow"></i>
+                                {% elif appointment.status == "Accepted" %}
+                                  <i class="bg-green"></i>
+                                {% elif appointment.status == "Rejected" %}
+                                  <i class="bg-red"></i>
+                                {% elif appointment.status == "Completed" %}
+                                  <i class="bg-blue"></i>
+                                {% endif %}
+                                <span class="status">{{ appointment.status }}</span>
+                              </span>
+                            </td>
+                            <td class="text-right">
+                              <div class="dropdown">
+                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fas fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                  {% if appointment.status == "Pending" %}
+                                    <button class="dropdown-item" name="accept" value="{{ appointment.pk }}">Accept</button>
+                                    <button class="dropdown-item" name="reject" value="{{ appointment.pk }}">Reject</button>
+                                  {% elif appointment.status == "Accepted" %}
+                                    <button class="dropdown-item" name="complete" value="{{ appointment.pk }}">Mark as complete</button>
+                                  {% elif appointment.status == "Rejected" or appointment.status == "Completed" %}
+                                    <button class="dropdown-item" name="delete" value="{{ appointment.pk }}">Delete</button>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        {% endif %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h3 class="mb-0">Radiology - Dr. Kelwin Chew</h3>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">Patient's Name</th>
+                    <th scope="col" class="sort" data-sort="email">Email</th>
+                    <th scope="col" class="sort" data-sort="contact-number">Contact Number</th>
+                    <th scope="col" class="sort" data-sort="medical-concern">Medical Concern</th>
+                    <th scope="col" class="sort" data-sort="status">Status</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  {% for appointment in appointments %}
+                    {% if appointment.request_specialty == "4" %}
+                          <tr>
+                            <th scope="row">
+                              <div class="media align-items-center">
+                                <a href="#" class="avatar rounded-circle mr-3">
+                                  <img alt="Image placeholder" src="/static/assets/img/theme/patient.png">
+                                </a>
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{ appointment.first_name }} {{ appointment.last_name }}</span>
+                                </div>
+                              </div>
+                            </th>
+                            <td class="email">
+                              {{ appointment.email }}
+                            </td>
+                            <td class="contact-number">
+                              {{ appointment.contact_number }}
+                            </td>
+                            <td class="medical-concern">
+                              {{ appointment.medical_concern|truncatechars:30 }}
+                            </td>
+                            <td>
+                              <span class="badge badge-dot mr-4">
+                                {% if appointment.status == "Pending" %}
+                                  <i class="bg-yellow"></i>
+                                {% elif appointment.status == "Accepted" %}
+                                  <i class="bg-green"></i>
+                                {% elif appointment.status == "Rejected" %}
+                                  <i class="bg-red"></i>
+                                {% elif appointment.status == "Completed" %}
+                                  <i class="bg-blue"></i>
+                                {% endif %}
+                                <span class="status">{{ appointment.status }}</span>
+                              </span>
+                            </td>
+                            <td class="text-right">
+                              <div class="dropdown">
+                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fas fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                  {% if appointment.status == "Pending" %}
+                                    <button class="dropdown-item" name="accept" value="{{ appointment.pk }}">Accept</button>
+                                    <button class="dropdown-item" name="reject" value="{{ appointment.pk }}">Reject</button>
+                                  {% elif appointment.status == "Accepted" %}
+                                    <button class="dropdown-item" name="complete" value="{{ appointment.pk }}">Mark as complete</button>
+                                  {% elif appointment.status == "Rejected" or appointment.status == "Completed" %}
+                                    <button class="dropdown-item" name="delete" value="{{ appointment.pk }}">Delete</button>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        {% endif %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h3 class="mb-0">Arthroplasty - Dr. Tan Zhi Jun</h3>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">Patient's Name</th>
+                    <th scope="col" class="sort" data-sort="email">Email</th>
+                    <th scope="col" class="sort" data-sort="contact-number">Contact Number</th>
+                    <th scope="col" class="sort" data-sort="medical-concern">Medical Concern</th>
+                    <th scope="col" class="sort" data-sort="status">Status</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  {% for appointment in appointments %}
+                    {% if appointment.request_specialty == "5" %}
+                          <tr>
+                            <th scope="row">
+                              <div class="media align-items-center">
+                                <a href="#" class="avatar rounded-circle mr-3">
+                                  <img alt="Image placeholder" src="/static/assets/img/theme/patient.png">
+                                </a>
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{ appointment.first_name }} {{ appointment.last_name }}</span>
+                                </div>
+                              </div>
+                            </th>
+                            <td class="email">
+                              {{ appointment.email }}
+                            </td>
+                            <td class="contact-number">
+                              {{ appointment.contact_number }}
+                            </td>
+                            <td class="medical-concern">
+                              {{ appointment.medical_concern|truncatechars:30 }}
+                            </td>
+                            <td>
+                              <span class="badge badge-dot mr-4">
+                                {% if appointment.status == "Pending" %}
+                                  <i class="bg-yellow"></i>
+                                {% elif appointment.status == "Accepted" %}
+                                  <i class="bg-green"></i>
+                                {% elif appointment.status == "Rejected" %}
+                                  <i class="bg-red"></i>
+                                {% elif appointment.status == "Completed" %}
+                                  <i class="bg-blue"></i>
+                                {% endif %}
+                                <span class="status">{{ appointment.status }}</span>
+                              </span>
+                            </td>
+                            <td class="text-right">
+                              <div class="dropdown">
+                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fas fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                  {% if appointment.status == "Pending" %}
+                                    <button class="dropdown-item" name="accept" value="{{ appointment.pk }}">Accept</button>
+                                    <button class="dropdown-item" name="reject" value="{{ appointment.pk }}">Reject</button>
+                                  {% elif appointment.status == "Accepted" %}
+                                    <button class="dropdown-item" name="complete" value="{{ appointment.pk }}">Mark as complete</button>
+                                  {% elif appointment.status == "Rejected" or appointment.status == "Completed" %}
+                                    <button class="dropdown-item" name="delete" value="{{ appointment.pk }}">Delete</button>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        {% endif %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

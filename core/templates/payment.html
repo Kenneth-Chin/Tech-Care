@@ -1,0 +1,83 @@
+{% extends 'layouts/base.html' %}
+
+{% load widget_tweaks %}
+
+{% block title %} Payment {% endblock title %}
+
+{% block content %}
+
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-9 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">Smart Pharmacy</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">Patient's View</a></li>
+                <li class="breadcrumb-item"><a href="#">Smart Pharmacy</a></li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <!-- Card header -->
+              <div class="card-header border-0">
+                <h3 class="mb-0">Choose a Payment Method</h3>
+              </div>
+            <form method="post" action="payment-success.html">
+              {% csrf_token %}
+              <div class="card-body">
+
+                  <p align="middle">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card card-stats">
+                                <h2 class="font-weight-bold mb-0" align="middle">Credit Card <input type="radio" id="credit-card" name="payment" required></h2>
+                                <img src="/static/assets/img/theme/credit_card.jpg">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-stats">
+                                <h2 class="font-weight-bold mb-0" align="middle">Paypal <input type="radio" id="paypal" name="payment" required></h2>
+                                <img src="/static/assets/img/theme/paypal.png" style="object-fit:cover">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-stats">
+                                <h2 class="font-weight-bold mb-0" align="middle">Cryptocurrency <input type="radio" id="crypto" name="payment" required></h2>
+                                <img src="/static/assets/img/theme/crypto.png">
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="mb-0" align="middle"> Total: RM200 </h3>
+                    <br>
+                    <p align="middle">
+                        <input type="submit" class="btn btn-lg btn-primary" style="float: middle;" value="Confirm Payment">
+                    </p>
+                  <hr>
+                  <p>* There is no actual payment involved. This is just a demo website.</p>
+                  </p>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

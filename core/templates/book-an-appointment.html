@@ -1,0 +1,105 @@
+{% extends 'layouts/base.html' %}
+
+{% load widget_tweaks %}
+
+{% block title %} Book An Appointment {% endblock title %}
+
+{% block content %}
+
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-9 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">Book An Appointment</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">Patient's View</a></li>
+                <li class="breadcrumb-item"><a href="#">Book An Appointment</a></li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <!-- Card header -->
+            <form method="post" action="book-an-appointment.html">
+              {% csrf_token %}
+              <div class="card-header border-0">
+                <h3 class="mb-0">Patient's Info</h3>
+              </div>
+              <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="first-name">First Name</label>
+                        {% render_field form.first_name type="text" class="form-control form-control-alternative" id="first-name" %}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="last-name">Last Name</label>
+                        {% render_field form.last_name type="text" class="form-control form-control-alternative" id="last-name" %}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        {% render_field form.email type="email" class="form-control form-control-alternative" id="email" %}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="contact-number">Contact Number</label>
+                        {% render_field form.contact_number type="tel" class="form-control form-control-alternative" id="contact-number" %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Appointment Details</h3>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label for="specialty">Request Specialty</label>
+                        {% render_field form.request_specialty class="form-control form-control-alternative" id="specialty" %}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="medical-concern">Medical Concern Or Request (Required)</label>
+                        {% render_field form.medical_concern class="form-control form-control-alternative" id="medical-concern" %}
+                      </div>
+                    </div>
+                  </div>
+                  <p align="right">
+                    <input type="submit" class="btn btn-primary mt-5">
+                  </p>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

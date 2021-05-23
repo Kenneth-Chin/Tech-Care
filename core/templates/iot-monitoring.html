@@ -1,0 +1,221 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} IoT Monitoring {% endblock title %}
+
+{% block content %}
+<script type="text/javascript" src="https://rawgit.com/nnnick/Chart.js/v1.0.2/Chart.min.js"></script>
+<script type="text/javascript">
+    window.onload=function(){
+function getActualData() {
+    var actualData = []
+    for (var m = 0; m < 20; m++)
+        actualData.push(45 + parseInt(Math.random() * 35))
+        return actualData;
+}
+function DecimalGenerate() {
+    var min = 36.10
+    var max = 37.20
+    var NumberResult = Math.random() * (max - min) + min;
+
+    return NumberResult.toFixed(2)
+};
+var ANIMATIONSTEPS = 200;
+var myLineChart;
+var myLineChart2;
+var labels;
+var labels2;
+var animationStep;
+setInterval(function () {
+    if (myLineChart === undefined) {
+        var actualData = getActualData();
+        var interpolationSteps = Math.ceil(ANIMATIONSTEPS / actualData.length);
+        labels = []
+        var data = []
+        var blankData = []
+        for (var i = 0; i < (actualData.length - 1); i++) {
+            labels.push('')
+            data.push(actualData[i])
+            blankData.push(null)
+            var difference = actualData[i + 1] - actualData[i];
+            var interpolationStep = 1 / interpolationSteps;
+            for (var j = 1; j < interpolationSteps; j++) {
+                labels.push('')
+                data.push(actualData[i] + difference * Chart.helpers.easingEffects["linear"](j * interpolationStep));
+                blankData.push(null)
+            }
+        }
+        labels.push('')
+        data.push(actualData[i])
+        blankData.push(null)
+        var data = {
+            labels: labels,
+            datasets: [
+                {
+                    strokeColor: "rgba(255, 0, 0, 1)",
+                    data: blankData
+                },
+                {
+                    strokeColor: "transparent",
+                    data: data
+                }
+            ]
+        };
+
+        var actualData2 = getActualData();
+        var interpolationSteps2 = Math.ceil(ANIMATIONSTEPS / actualData2.length);
+        labels2 = []
+        var data2 = []
+        var blankData2 = []
+        for (var i = 0; i < (actualData2.length - 1); i++) {
+            labels2.push('')
+            data2.push(actualData2[i])
+            blankData2.push(null)
+            var difference2 = actualData2[i + 1] - actualData2[i];
+            var interpolationStep2 = 1 / interpolationSteps2;
+            for (var j = 1; j < interpolationSteps2; j++) {
+                labels2.push('')
+                data2.push(actualData2[i] + difference2 * Chart.helpers.easingEffects["linear"](j * interpolationStep2));
+                blankData2.push(null)
+            }
+        }
+        labels2.push('')
+        data2.push(actualData2[i])
+        blankData2.push(null)
+        var data2 = {
+            labels: labels2,
+            datasets: [
+                {
+                    strokeColor: "rgba(0, 128, 0, 1)",
+                    data: blankData2
+                },
+                {
+                    strokeColor: "transparent",
+                    data: data2
+                }
+            ]
+        };
+
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var ctx2 = document.getElementById("myChart2").getContext("2d");
+        var temp = document.getElementById("temperature")
+        temp.innerHTML = DecimalGenerate().toString() + " °C"
+        myLineChart = new Chart(ctx).Line(data, {
+            animation: false,
+            datasetFill: false,
+            pointDot: false,
+            datasetStrokeWidth: 5,
+            showTooltips: false,
+            scaleOverride: true,
+            scaleSteps: 12,
+            scaleStepWidth: 5,
+            scaleStartValue: 30,
+            scaleShowVerticalLines: false,
+            scaleShowLabels: false,
+        });
+        myLineChart2 = new Chart(ctx2).Line(data2, {
+            animation: false,
+            datasetFill: false,
+            pointDot: false,
+            datasetStrokeWidth: 5,
+            showTooltips: false,
+            scaleOverride: true,
+            scaleSteps: 12,
+            scaleStepWidth: 5,
+            scaleStartValue: 30,
+            scaleShowVerticalLines: false,
+            scaleShowLabels: false,
+        });
+        animationStep = 0;
+    }
+    myLineChart.datasets[0].points[animationStep].value = myLineChart.datasets[1].points[animationStep].value
+    myLineChart.update();
+    myLineChart2.datasets[0].points[animationStep].value = myLineChart2.datasets[1].points[animationStep].value
+    myLineChart2.update();
+    animationStep++;
+    if (animationStep >= labels.length) {
+        myLineChart.destroy();
+        myLineChart = undefined;
+        myLineChart2.destroy();
+        myLineChart2 = undefined;
+    }
+}, 10)
+    }
+
+window.addEventListener('load', function(){
+    if (localStorage.pick) {
+        var sel = document.querySelector('#selectX');
+        sel.value = localStorage.pick;
+    }
+});
+
+function getSelectValue(){
+    var sel = document.querySelector('#selectX');
+    localStorage.pick = sel.value;
+    location.reload();
+}
+</script>
+
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">IoT Monitoring</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">Doctor's View</a></li>
+                <li class="breadcrumb-item active" aria-current="page">IoT Monitoring</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+            {% if patient_exist %}
+                  <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header border-0">
+                        <h3 class="mb-0" style="display: inline-block; width:80px">Patient: </h3>
+                        <select class="form-control form-control-alternative" style="display: inline-block; width:300px" id = "selectX" onchange = "getSelectValue();">
+                            {% for patient in patients %}
+                                <option>{{ patient.first_name }} {{ patient.last_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <h3 style="display: inline-block;float: right" id="temperature">Temperature: <h3 style="display: inline-block; float: right">Temperature: &nbsp</h3></h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Heart Rate</p>
+                        <canvas id="myChart" height="250" width="1050"></canvas>
+                        <p>Blood Glucose Level</p>
+                        <canvas id="myChart2" height="250" width="1050"></canvas>
+                    </div>
+                  </div>
+            {% else %}
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header border-0">
+                      <h3 class="mb-0">There are no admitted patients in the system yet...</h3>
+                        <div class="card-body">
+                            <p><a href="register-a-patient.html">Register patients</a>, admit them and you'll see them appear here!</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
