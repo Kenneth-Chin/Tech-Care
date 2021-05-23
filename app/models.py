@@ -10,7 +10,7 @@ SPECIALTIES = [("1", "Neurology - Dr. Kenneth Chin Wei Yow"),
                ("2", "Cardiology - Dr. Aw Zhi Wei"),
                ("3", "Psychiatry - Dr. Leong Chee Kei"),
                ("4", "Radiology - Dr. Kelwin Chew"),
-               ("5", "Arthroplasty - Dr. Tan Zhi Jun")]
+               ("5", "Dermatology - Dr. Tan Zhi Jun")]
 
 GENDERS = [("M", "Male"),
            ("F", "Female"),
