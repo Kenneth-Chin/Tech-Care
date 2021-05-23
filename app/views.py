@@ -100,7 +100,7 @@ def pages(request):
             context["patients"] = Patient.objects.filter(status="Admitted")
 
         html_template = loader.get_template( load_template )
-        return HttpResponse(html_template.render(context, request), content_type="application/javascript")
+        return HttpResponse(html_template.render(context, request))
         
     except template.TemplateDoesNotExist:
 
