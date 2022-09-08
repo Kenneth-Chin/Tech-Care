@@ -1,4 +1,4 @@
-# TechCare
+# Tech-Care
 
 TechCare is a hospital system that provides a range of digital services to improve healthcare quality for patients. Visit the demo website - https://tech-care.herokuapp.com/ for more information.
 
